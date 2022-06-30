@@ -5,10 +5,19 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.8.6",
+    "@mui/styles": "^5.2.3",
+    "axios": "^0.27.2",
+    "dashify": "^2.0.0",
+    "firebase-admin": "^11.0.0",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
