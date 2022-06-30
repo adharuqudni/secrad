@@ -1,8 +1,4 @@
 import '../styles/globals.css';
-import * as firebase from "firebase-admin";
-if (!firebase.apps.length) {
-  firebase.initializeApp();
-}
 
 function MyApp({ Component, pageProps }) {
   return (

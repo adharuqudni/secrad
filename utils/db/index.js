@@ -1,10 +1,11 @@
 import admin from 'firebase-admin';
 import serviceAccount from './secret_key.js';
-console.log(serviceAccount);
+
+console.log(admin.apps);
 if (!admin.apps.length) {
   try {
     admin.initializeApp({
-      credential: admin.credential.cert(JSON.parse(serviceAccount))
+      credential: admin.credential.cert(serviceAccount)
     });
   } catch (error) {
     console.log('Firebase admin initialization error', error.stack);
