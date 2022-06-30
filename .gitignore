@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+secret_key.json
+.env
