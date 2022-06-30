@@ -71,7 +71,6 @@ export default function Home(props) {
   const fetchMessage = () => {
     setLoading(true)
     axios.get('/api/landing').then((response) => {
-      console.log(response.data)
       setListMessage(response.data || [])
     }).finally(() => {
       setLoading(false)
@@ -81,7 +80,6 @@ export default function Home(props) {
   const handleClick = async () => {
     const response = await axios.post('/api/landing', { message });
     fetchMessage();
-    console.log(response)
   }
 
   return (
@@ -98,41 +96,44 @@ export default function Home(props) {
         isLoading
         && <CircularProgress />
       }
-
-      <TabPanel value={value} index={0}>
-        {!isLoading ? <div className={styles.main}>
-          <div className={styles.grid}>
-            <div className={styles.card} style={{ backgroundImage: 'linear-gradient(to bottom right, whitesmoke, lightblue)', color: 'black' }}>
-              <Avatar>A</Avatar>
-              <Typography >Send Me Anonymouse Message</Typography>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="send me anonymouse message"
-                variant="filled"
-                multiline
-                maxRows={10}
-                minRows={4}
-                value={message}
-                onChange={handleMessage}
-                style={{ width: '100%', marginBottom: '10px' }}
-              />
-              {message?.length > 0 ? <Button variant="contained" onClick={() => handleClick()}>Send!</Button> : <></>}
+      {!isLoading ?
+        <TabPanel value={value} index={0}>
+          <div className={styles.main}>
+            <div className={styles.grid}>
+              <div className={styles.card} style={{ backgroundImage: 'linear-gradient(to bottom right, whitesmoke, lightblue)', color: 'black' }}>
+                <Avatar>A</Avatar>
+                <Typography >Send Me Anonymouse Message</Typography>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="send me anonymouse message"
+                  variant="filled"
+                  multiline
+                  maxRows={10}
+                  minRows={4}
+                  value={message}
+                  onChange={handleMessage}
+                  style={{ width: '100%', marginBottom: '10px' }}
+                />
+                {message?.length > 0 ? <Button variant="contained" onClick={() => handleClick()}>Send!</Button> : <></>}
+              </div>
             </div>
           </div>
-        </div> : <></>}
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        {!isLoading ? <div className={styles.main}>
-          <div className={styles.grid}>
-            {listMessage.map((item, index) => (
-              <Card className={styles.card} style={{ backgroundImage: 'linear-gradient(to bottom right, whitesmoke, lightblue)', color: 'black' }}>
-                {item?.text.length > 0 ? <Typography variant="h1">{item.text}</Typography> : <></>}
-              </Card>
-            ))}
+        </TabPanel>
+        : <></>}
+      {!isLoading ?
+        <TabPanel value={value} index={1}>
+          <div className={styles.main}>
+            <div className={styles.grid}>
+              {listMessage.map((item, index) => (
+                <Card className={styles.card} style={{ backgroundImage: 'linear-gradient(to bottom right, whitesmoke, lightblue)', color: 'black' }}>
+                  {item?.text.length > 0 ? <Typography variant="h1">{item.text}</Typography> : <></>}
+                </Card>
+              ))}
+            </div>
           </div>
-        </div> : <></>}
 
-      </TabPanel>
+        </TabPanel>
+        : <></>}
     </div>
   )
 }
