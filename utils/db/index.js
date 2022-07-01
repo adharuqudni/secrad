@@ -1,7 +1,6 @@
 import admin from 'firebase-admin';
 import serviceAccount from './secret_key.js';
 
-console.log(admin.apps);
 const { privateKey } = JSON.parse(serviceAccount.private_key);
 if (!admin.apps.length) {
   try {

@@ -12,8 +12,6 @@ import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import SignOutButton from '../component/auth/SignOut'
 import TabPanel from '../component/TabPanel'
-import { useRouter } from 'next/router';
-import { useAuth } from '../utils/auth/authProvider';
 
 function a11yProps(index) {
   return {
@@ -24,20 +22,20 @@ function a11yProps(index) {
 
 
 export default function Home(props) {
-  const { authUser, loading } = useAuth();
-  const router = useRouter();
-
   const [value, setValue] = useState(0);
   const [message, setMessage] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [listMessage, setListMessage] = useState([]);
-
-  useEffect(() => {
-    if (!loading && !authUser)
-      router.push('/login')
-    console.log(authUser);
-  }, [authUser, loading])
-
+  const [listMessage, setListMessage] = useState([
+    {
+      text: 'test1',
+    },
+    {
+      text: 'test2',
+    },
+    {
+      text: 'test3',
+    }
+  ]);
 
   useEffect(() => {
     fetchMessage();
@@ -60,7 +58,7 @@ export default function Home(props) {
   }
 
   const handleClick = async () => {
-    const response = await axios.post('/api/landing', { message, email: authUser.email });
+    const response = await axios.post('/api/landing', { message });
     fetchMessage();
   }
 
@@ -107,10 +105,9 @@ export default function Home(props) {
         <TabPanel value={value} index={1}>
           <div className={styles.main}>
             <div className={styles.grid}>
-              {(listMessage.length > 0) && listMessage.map((item, index) => (
+              {listMessage.map((item, index) => (
                 <Card key={index} className={styles.card} style={{ backgroundImage: 'linear-gradient(to bottom right, whitesmoke, lightblue)', color: 'black' }}>
                   {item?.text.length > 0 ? <Typography variant="h1">{item.text}</Typography> : <></>}
-                  {item?.email.length > 0 ? <Typography variant="h4">{item.email}</Typography> : <></>}
                 </Card>
               ))}
             </div>

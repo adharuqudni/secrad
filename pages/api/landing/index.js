@@ -2,7 +2,7 @@ import db from '../../../utils/db';
 
 const postMethod = async (req, res) => {
   try {
-    const newMessage = req.body.message;
+    const {message: newMessage, email} = req.body;
     const message = await db.collection('message').get();
     const messageData = message.docs.map(message => message.data());
     console.log(messageData);
@@ -10,6 +10,7 @@ const postMethod = async (req, res) => {
       res.status(400).end();
     } else {
       const { id } = await db.collection('message').add({
+        email: email,
         text: newMessage,
         created: new Date(),
       });
